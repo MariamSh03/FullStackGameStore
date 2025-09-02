@@ -1,0 +1,185 @@
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1>{{ 'home.hero_title' | translate }}</h1>
+      <p>{{ 'home.hero_subtitle' | translate }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Games Content -->
+<div class="games-container">
+  <!-- Search Bar -->
+  <div class="search-bar-container">
+    <div class="search-wrapper">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        (input)="onSearchChange()" 
+        [placeholder]="'games.search_placeholder' | translate"
+        class="main-search-input">
+      <span class="search-icon">🔍</span>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <!-- Main Content - Games Grid -->
+    <main class="main-content">
+      <div class="results-header">
+        <h2>{{ 'games.games_title' | translate }}</h2>
+      </div>
+
+      <!-- Loading State -->
+      <div *ngIf="loading" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>{{ 'games.loading' | translate }}</p>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="error" class="error-container">
+        <p class="error-message">{{ error }}</p>
+      </div>
+
+      <!-- Games Grid -->
+      <div *ngIf="!loading" class="games-grid">
+        <div *ngFor="let game of filteredGames.slice(0, 8)" class="game-card" [routerLink]="['/game', game.id]">
+          <div class="game-image">
+            <img 
+              [src]="getRandomGameImage(game.id)" 
+              [alt]="game.name + ' cover'"
+              class="game-cover-image"
+              (load)="onImageLoad(game.id)"
+              (error)="onImageError($event, game.id)"
+              [style.display]="getImageErrorStatus(game.id) ? 'none' : 'block'">
+            <div class="placeholder-image" [style.display]="getImageErrorStatus(game.id) || !getImageLoadStatus(game.id) ? 'flex' : 'none'">{{ game.name }}</div>
+            <div *ngIf="game.discount > 0" class="discount-badge">-{{ game.discount }}%</div>
+          </div>
+          
+          <div class="game-info">
+            <h3 class="game-title">{{ game.name }}</h3>
+            <p class="game-details">{{ game.genre }} {{ game.platform }}</p>
+            <div class="price-display">
+              <span class="discounted-price">${{ getDiscountedPrice(game.price, game.discount).toFixed(2) }}</span>
+              <span class="original-price" *ngIf="game.discount > 0">${{ game.price.toFixed(2) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div *ngIf="!loading && totalPages > 1" class="pagination">
+        <button 
+          class="page-btn" 
+          (click)="previousPage()" 
+          [disabled]="currentPage === 1">
+          «
+        </button>
+        
+        <button 
+          *ngFor="let page of [].constructor(totalPages); let i = index" 
+          class="page-btn" 
+          [class.active]="currentPage === i + 1"
+          (click)="goToPage(i + 1)">
+          {{ i + 1 }}
+        </button>
+        
+        <button 
+          class="page-btn" 
+          (click)="nextPage()" 
+          [disabled]="currentPage === totalPages">
+          »
+        </button>
+      </div>
+    </main>
+
+    <!-- Right Sidebar Filters -->
+    <aside class="sidebar">
+      <div class="filter-section">
+        <h3>{{ 'games.refine_results' | translate }}</h3>
+        
+        <!-- Sorting -->
+        <div class="filter-group">
+          <label>{{ 'games.sorting' | translate }}</label>
+          <select [(ngModel)]="sortBy" (change)="onSortChange()" class="sort-select">
+            <option value="popular">{{ 'games.sort_options.popular' | translate }}</option>
+            <option value="name">{{ 'games.sort_options.name' | translate }}</option>
+            <option value="price-low">{{ 'games.sort_options.price_low' | translate }}</option>
+            <option value="price-high">{{ 'games.sort_options.price_high' | translate }}</option>
+            <option value="rating">{{ 'games.sort_options.rating' | translate }}</option>
+            <option value="newest">{{ 'games.sort_options.newest' | translate }}</option>
+          </select>
+        </div>
+
+        <!-- Genre Filter -->
+        <div class="filter-group">
+          <h4>{{ 'games.genre' | translate }}</h4>
+          <div class="checkbox-group">
+            <label *ngFor="let genre of genreNames" class="checkbox-label">
+              <input 
+                type="checkbox" 
+                (change)="onGenreChange(genre, $event)"
+                [checked]="selectedGenreIds.includes(getGenreId(genre))">
+              <span>{{ genre }}</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Platform Filter -->
+        <div class="filter-group">
+          <h4>{{ 'games.platform' | translate }}</h4>
+          <div class="checkbox-group">
+            <label *ngFor="let platform of platformNames" class="checkbox-label">
+              <input 
+                type="checkbox" 
+                (change)="onPlatformChange(platform, $event)"
+                [checked]="selectedPlatformIds.includes(getPlatformId(platform))">
+              <span>{{ platform }}</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Price Range -->
+        <div class="filter-group">
+          <h4>{{ 'games.price_range' | translate }}</h4>
+          <div class="price-range">
+            <div class="price-inputs">
+              <div class="price-input-group">
+                <label>{{ 'games.from' | translate }}</label>
+                <input 
+                  type="text" 
+                  [(ngModel)]="priceFrom" 
+                  (input)="onPriceChange()"
+                  placeholder="$15"
+                  class="price-input">
+              </div>
+              <div class="price-input-group">
+                <label>{{ 'games.to' | translate }}</label>
+                <input 
+                  type="text" 
+                  [(ngModel)]="priceTo" 
+                  (input)="onPriceChange()"
+                  placeholder="$80"
+                  class="price-input">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publisher Filter -->
+        <div class="filter-group">
+          <h4>{{ 'games.publisher' | translate }}</h4>
+          <div class="checkbox-group">
+            <label *ngFor="let publisher of publisherNames" class="checkbox-label">
+              <input 
+                type="checkbox" 
+                (change)="onPublisherChange(publisher, $event)"
+                [checked]="selectedPublisherNames.includes(publisher)">
+              <span>{{ publisher }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

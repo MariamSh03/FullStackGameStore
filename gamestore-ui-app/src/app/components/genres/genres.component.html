@@ -1,0 +1,69 @@
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1>{{ 'genres.title' | translate }}</h1>
+      <p>{{ 'genres.subtitle' | translate }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Genres Content -->
+<div class="genres-container">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>{{ 'genres.loading' | translate }}</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-container">
+    <p class="error-message">{{ error }}</p>
+  </div>
+
+  <!-- Genres Grid -->
+  <div *ngIf="!loading && !error" class="content-wrapper">
+    <main class="main-content">
+      <div class="results-header">
+        <h2>{{ 'genres.all_genres' | translate }} ({{ genres.length }})</h2>
+      </div>
+
+      <!-- Parent Genres with their children -->
+      <div class="genres-grid">
+        <div *ngFor="let parentGenre of parentGenres" class="genre-category">
+          <div class="parent-genre">
+            <h3 class="genre-title">{{ parentGenre.name }}</h3>
+            <div class="genre-id">ID: {{ parentGenre.id }}</div>
+          </div>
+          
+          <!-- Child genres -->
+          <div *ngIf="getChildGenres(parentGenre.id).length > 0" class="child-genres">
+            <h4>{{ 'genres.sub_genres' | translate }}</h4>
+            <div class="child-genre-list">
+              <div *ngFor="let childGenre of getChildGenres(parentGenre.id)" class="child-genre">
+                <span class="child-genre-name">{{ childGenre.name }}</span>
+                <span class="child-genre-id">{{ childGenre.id }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Standalone genres (no children, used as children themselves, or orphaned) -->
+      <div class="standalone-genres">
+        <h3>{{ 'genres.all_genres_list' | translate }}</h3>
+        <div class="genre-list">
+          <div *ngFor="let genre of genres" class="genre-item">
+            <div class="genre-info">
+              <span class="genre-name">{{ genre.name }}</span>
+              <span class="genre-details">
+                ID: {{ genre.id }}
+                <span *ngIf="genre.parentGenreId"> | {{ 'genres.parent' | translate }}: {{ genre.parentGenreId }}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

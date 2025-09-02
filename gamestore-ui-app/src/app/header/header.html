@@ -1,0 +1,27 @@
+<nav class="header-nav">
+  <div class="nav-container">
+    <div class="logo">
+      <a routerLink="/">logo</a>
+    </div>
+    <ul class="nav-menu">
+      <li><a routerLink="/games">{{ 'navbar.games' | translate }}</a></li>
+      <li><a routerLink="/genres">{{ 'navbar.genres' | translate }}</a></li>
+      <li><a routerLink="/publishers">{{ 'navbar.publishers' | translate }}</a></li>
+      <li><a routerLink="/orders">{{ 'navbar.orders' | translate }}</a></li>
+      <li><a routerLink="/basket">{{ 'navbar.cart' | translate }}</a></li>
+    </ul>
+    <div class="language-dropdown">
+      <button class="language-btn" (click)="toggleDropdown()">
+        {{ selectedLanguage.label }}
+        <span class="dropdown-arrow" [class.open]="isDropdownOpen">▼</span>
+      </button>
+      <ul class="language-options" [class.show]="isDropdownOpen">
+        <li *ngFor="let language of languages" 
+            (click)="selectLanguage(language)"
+            [class.active]="language.code === selectedLanguage.code">
+          {{ language.label }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

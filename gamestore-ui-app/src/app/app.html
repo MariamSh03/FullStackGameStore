@@ -1,0 +1,118 @@
+<div class="app-wrapper">
+  <app-header></app-header>
+
+  <!-- Main content area for routing -->
+  <router-outlet />
+
+  <!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <!-- Get in Touch -->
+      <div class="footer-section">
+        <h3>{{ 'footer.get_in_touch' | translate }}</h3>
+        <form class="contact-form">
+          <input type="email" [placeholder]="'footer.email_placeholder' | translate" />
+          <textarea [placeholder]="'footer.message_placeholder' | translate" rows="4"></textarea>
+          <button type="submit" class="cta-button">{{ 'footer.submit' | translate }}</button>
+        </form>
+      </div>
+
+      <!-- Twitter Updates -->
+      <div class="footer-section">
+        <h3>{{ 'footer.twitter_updates' | translate }}</h3>
+        <div class="twitter-updates">
+          <div class="tweet">
+            <p>Over May Cry 4 
+              <a href="#">http://bit.ly/DMC</a>
+            </p>
+            <span class="tweet-time">{{ 'footer.about_time_ago' | translate:{ time: '3 days' } }}</span>
+          </div>
+          <div class="tweet">
+            <p>Devil or Alive 5 Special Edition
+              <a href="#">http://bit.ly/DOA</a>
+            </p>
+            <span class="tweet-time">{{ 'footer.about_time_ago' | translate:{ time: '4 days' } }}</span>
+          </div>
+          <div class="tweet">
+            <p>Resident Evil 6 Special Edition
+              <a href="#">http://bit.ly/RE6</a>
+            </p>
+            <span class="tweet-time">{{ 'footer.about_time_ago' | translate:{ time: '5 days' } }}</span>
+          </div>
+        </div>
+        <button class="cta-button">{{ 'footer.follow_us' | translate }}</button>
+      </div>
+
+      <!-- From the Blog -->
+      <div class="footer-section">
+        <h3>{{ 'footer.from_blog' | translate }}</h3>
+        <div class="blog-updates">
+          <div class="blog-post">
+            <p>Proin commodo sodales ante, a volutpat.
+              Nulla commodo a est. <a href="#">{{ 'footer.learn_more' | translate }}</a>
+            </p>
+          </div>
+          <div class="blog-post">
+            <p>Proin commodo sodales ante, a volutpat.
+              Nulla commodo a est non. <a href="#">{{ 'footer.learn_more' | translate }}</a>
+            </p>
+          </div>
+          <div class="blog-post">
+            <p>Curabitur a dignissim lorem, tempor adipiscing
+              elit. <a href="#">{{ 'footer.learn_more' | translate }}</a>
+            </p>
+          </div>
+          <div class="blog-post">
+            <p>Nam pellentesque finibus elit eget
+              feugiat. Nulla a est non elit. <a href="#">{{ 'footer.learn_more' | translate }}</a>
+            </p>
+          </div>
+        </div>
+        <button class="cta-button">{{ 'footer.visit_blog' | translate }}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Footer -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-container">
+      <div class="footer-links">
+        <div class="link-group">
+          <h4>{{ 'footer.site_links' | translate }}</h4>
+          <ul>
+            <li><a routerLink="/games">{{ 'navbar.games' | translate }}</a></li>
+            <li><a routerLink="/genres">{{ 'navbar.genres' | translate }}</a></li>
+            <li><a routerLink="/publishers">{{ 'navbar.publishers' | translate }}</a></li>
+            <li><a routerLink="/orders">{{ 'navbar.orders' | translate }}</a></li>
+            <li><a routerLink="/basket">{{ 'footer.my_basket' | translate }}</a></li>
+          </ul>
+        </div>
+        <div class="link-group">
+          <h4>{{ 'footer.company_info' | translate }}</h4>
+          <ul>
+            <li><a href="#about">{{ 'footer.about' | translate }}</a></li>
+            <li><a href="#careers">{{ 'footer.careers' | translate }}</a></li>
+            <li><a href="#reviews">{{ 'footer.reviews' | translate }}</a></li>
+            <li><a href="#testimonials">{{ 'footer.testimonials' | translate }}</a></li>
+            <li><a href="#contact">{{ 'footer.contact' | translate }}</a></li>
+          </ul>
+        </div>
+        <div class="link-group">
+          <h4>{{ 'footer.social_media' | translate }}</h4>
+          <div class="social-icons">
+            <a href="#twitter" aria-label="Twitter">𝕏</a>
+            <a href="#facebook" aria-label="Facebook">f</a>
+            <a href="#email" aria-label="Email">@</a>
+            <a href="#linkedin" aria-label="LinkedIn">in</a>
+            <a href="#google" aria-label="Google">G+</a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>{{ 'footer.copyright' | translate }}</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>

@@ -1,0 +1,142 @@
+{
+  "navbar": {
+    "games": "GAMES",
+    "genres": "GENRES", 
+    "publishers": "PUBLISHERS",
+    "orders": "ORDERS",
+    "cart": "CART"
+  },
+  "home": {
+    "hero_title": "What Can Make Your Life Easier?",
+    "hero_subtitle": "Empowered Solutions with Simple Process",
+    "john_rembo_title": "Do You Know Who is John Rembo?",
+    "john_rembo_text": "Lorem ipsum dolor sit amet, consectetur et, adipiscing elit. Curabitur a dignissim lorem. Lorem ipsum dolor lorem ipsum esse fugit esse maxime excepturi rerum est et amet mauris. Proin vehicula tempor vel lectus tempor et. Etiam commodo dolor sit amet, consectetur adipiscing vel lorem vehicula. Aliquam erat volutpat. Vivamus ut maxim a lorem tincidunt tempor at sit ex.",
+    "learn_more": "Learn More",
+    "we_knocked_title": "We Knocked Em'Il",
+    "view_product": "View Product"
+  },
+  "games": {
+    "search_placeholder": "Search for Game",
+    "games_title": "Games",
+    "loading": "Loading games...",
+    "refine_results": "Refine Results",
+    "sorting": "Sorting",
+    "genre": "Genre",
+    "platform": "Platform",
+    "price_range": "Price Range",
+    "publisher": "Publisher",
+    "from": "From",
+    "to": "To",
+    "sort_options": {
+      "popular": "Most Popular",
+      "name": "Name",
+      "price_low": "Price: Low to High",
+      "price_high": "Price: High to Low",
+      "rating": "Rating",
+      "newest": "Newest"
+    }
+  },
+  "game_detail": {
+    "loading": "Loading game details...",
+    "home": "Home",
+    "game_details": "Game Details",
+    "launch_edition": "Launch Edition",
+    "reviews": "Reviews",
+    "platforms_on": "Platforms on:",
+    "pc_only": "PC only",
+    "genre": "Genre:",
+    "publisher": "Publisher:",
+    "add_to_cart": "Add to Cart",
+    "what_you_get": "What You Get",
+    "game_description": "Game Description",
+    "comments": "Comments",
+    "write_comment": "Write a comment",
+    "cancel": "Cancel",
+    "write_review": "Write a Review",
+    "your_rating": "Your Rating:",
+    "your_name": "Your Name",
+    "write_review_placeholder": "Write your review here...",
+    "submit_review": "Submit Review",
+    "liked": "Liked",
+    "like": "Like",
+    "reply": "Reply",
+    "report": "Report",
+    "load_more_comments": "Load More Comments",
+    "features": {
+      "no_subscription": "Purchase and use without a monthly subscription.",
+      "early_access": "Get early gaming access.",
+      "no_ads": "No ads in games.",
+      "access_games": "Access to 1,000+ games.",
+      "playstation_access": "PlayStation full Favorites Access.",
+      "monthly_games": "Special monthly free games like God of War, Days 2.",
+      "ea_sports": "EA SPORTS FC 24, including up to 4,600 FC Points (a $40 Value), plus",
+      "madden": "Madden NFL 24 Superstar Edition and FIFA 23 Ultimate Team with",
+      "ultimate_team": "Ultimate Team cards and other bonus content when you're an EA Play",
+      "discount": "10% discount in the PlayStation store and unlock big game's."
+    }
+  },
+  "cart": {
+    "cart_title": "Cart",
+    "items": "items",
+    "loading": "Loading cart...",
+    "error_loading": "Error loading cart:",
+    "retry": "Retry",
+    "removing": "Removing...",
+    "remove": "Remove",
+    "order_summary": "Order Summary",
+    "subtotal": "Subtotal",
+    "taxes": "Taxes",
+    "total": "Total",
+    "checkout": "Checkout"
+  },
+  "genres": {
+    "title": "Game Genres",
+    "subtitle": "Discover games by category",
+    "loading": "Loading genres...",
+    "all_genres": "All Genres",
+    "sub_genres": "Sub-genres:",
+    "all_genres_list": "All Genres List",
+    "parent": "Parent"
+  },
+  "publishers": {
+    "title": "Game Publishers",
+    "subtitle": "Discover games by publisher",
+    "loading": "Loading publishers...",
+    "all_publishers": "All Publishers",
+    "homepage": "Homepage:",
+    "description": "Description:"
+  },
+  "footer": {
+    "get_in_touch": "Get In Touch",
+    "email_placeholder": "Your email address",
+    "message_placeholder": "Message",
+    "submit": "Submit",
+    "twitter_updates": "Twitter Updates",
+    "about_time_ago": "About {{time}} ago",
+    "follow_us": "Follow Us",
+    "from_blog": "From the Blog",
+    "learn_more": "Learn More",
+    "visit_blog": "Visit Blog",
+    "site_links": "Site Links",
+    "my_basket": "My Basket",
+    "company_info": "Company Information",
+    "about": "About",
+    "careers": "Careers",
+    "reviews": "Reviews",
+    "testimonials": "Testimonials",
+    "contact": "Contact",
+    "social_media": "Social Media",
+    "copyright": "@2017 - 2019 All Rights Reserved"
+  },
+  "contact_form": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "off": "OFF"
+  }
+}

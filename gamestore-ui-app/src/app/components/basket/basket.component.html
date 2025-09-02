@@ -1,0 +1,148 @@
+<!-- Cart Page -->
+<div class="cart-page">
+  <!-- Loading state -->
+  <div *ngIf="loading" class="loading">
+    <p>{{ 'cart.loading' | translate }}</p>
+  </div>
+
+  <!-- Error state -->
+  <div *ngIf="error" class="error">
+    <p>{{ 'cart.error_loading' | translate }} {{ error }}</p>
+    <button (click)="loadCart()" class="retry-btn">{{ 'cart.retry' | translate }}</button>
+  </div>
+
+  <!-- Cart Content -->
+  <div *ngIf="!loading && !error" class="cart-content-wrapper">
+    <!-- Cart Header -->
+    <div class="cart-header">
+      <h1 class="cart-title">{{ 'cart.cart_title' | translate }}</h1>
+      <span class="cart-count">{{ cartItems.length }} {{ 'cart.items' | translate }}</span>
+    </div>
+
+  <!-- Cart Content -->
+  <div class="cart-content">
+    <!-- Cart Items List -->
+    <div class="cart-items-section">
+      <div *ngFor="let item of cartItems" class="cart-item">
+        <!-- Game Thumbnail -->
+        <div class="game-thumbnail">
+          <img [src]="getGameImage(item)" [alt]="item.gameName" class="game-image">
+        </div>
+        
+        <!-- Game Details -->
+        <div class="game-details">
+          <h3 class="game-name">{{ item.gameName }}</h3>
+          <div class="game-info">
+            <span class="info-tag">{{ getGamePlatform(item) }}</span>
+            <span class="info-tag">{{ getGameSize(item) }}</span>
+            <span *ngIf="item.gameKey?.includes('VR')" class="info-tag">PS VR Game</span>
+            <span *ngIf="item.gameKey?.includes('PSN')" class="info-tag">PSN Game</span>
+          </div>
+          <div class="game-price">${{ item.price.toFixed(2) }}</div>
+          
+          <!-- Quantity Selector -->
+          <div class="quantity-selector">
+            <button class="quantity-btn minus" (click)="decreaseQuantity(item)" [disabled]="item.quantity <= 1">-</button>
+            <span class="quantity-value">{{ item.quantity }}</span>
+            <button class="quantity-btn plus" (click)="increaseQuantity(item)">+</button>
+          </div>
+        </div>
+        
+        <!-- Remove Button -->
+        <div class="remove-section">
+          <button class="remove-btn" (click)="removeFromCart(item)" [disabled]="removing === item.gameId">
+            {{ removing === item.gameId ? ('cart.removing' | translate) : ('cart.remove' | translate) }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <h3 class="summary-title">{{ 'cart.order_summary' | translate }}</h3>
+      <div class="summary-line">
+        <span>{{ 'cart.subtotal' | translate }}</span>
+        <span>${{ getSubtotal().toFixed(2) }}</span>
+      </div>
+      <div class="summary-line">
+        <span>{{ 'cart.taxes' | translate }}</span>
+        <span>${{ getTax().toFixed(2) }}</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-line total">
+        <span>{{ 'cart.total' | translate }}</span>
+        <span>${{ getTotal().toFixed(2) }}</span>
+      </div>
+      <button class="checkout-btn" (click)="proceedToCheckout()">
+        {{ 'cart.checkout' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Additional Sections -->
+  <div class="additional-sections">
+    <!-- Get In Touch -->
+    <div class="section-column">
+      <h3 class="section-title">{{ 'footer.get_in_touch' | translate }}</h3>
+      <form class="contact-form">
+        <div class="form-group">
+          <label for="name">{{ 'contact_form.name' | translate }}</label>
+          <input type="text" id="name" name="name" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="email">{{ 'contact_form.email' | translate }}</label>
+          <input type="email" id="email" name="email" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="message">{{ 'contact_form.message' | translate }}</label>
+          <textarea id="message" name="message" rows="4" class="form-textarea"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">{{ 'footer.submit' | translate }}</button>
+      </form>
+    </div>
+
+    <!-- Twitter Updates -->
+    <div class="section-column">
+      <h3 class="section-title">{{ 'footer.twitter_updates' | translate }}</h3>
+      <div class="twitter-updates">
+        <div class="tweet-item">
+          <h4 class="tweet-title">Devil May Cry 5</h4>
+          <a href="http://goo.gl/efvfm" class="tweet-link">http://goo.gl/efvfm</a>
+          <span class="tweet-time">about 1 hour ago reply</span>
+        </div>
+        <div class="tweet-item">
+          <h4 class="tweet-title">Resident Evil 2</h4>
+          <a href="http://goo.gl/efvfm" class="tweet-link">http://goo.gl/efvfm</a>
+          <span class="tweet-time">about 2 hours ago reply</span>
+        </div>
+        <div class="tweet-item">
+          <h4 class="tweet-title">Street Fighter 6</h4>
+          <a href="http://goo.gl/efvfm" class="tweet-link">http://goo.gl/efvfm</a>
+          <span class="tweet-time">about 3 hours ago reply</span>
+        </div>
+      </div>
+      <button class="follow-btn">{{ 'footer.follow_us' | translate }}</button>
+    </div>
+
+    <!-- From the Blog -->
+    <div class="section-column">
+      <h3 class="section-title">{{ 'footer.from_blog' | translate }}</h3>
+      <div class="blog-posts">
+        <div class="blog-item">
+          <p class="blog-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <a href="#" class="learn-more">{{ 'footer.learn_more' | translate }}</a>
+        </div>
+        <div class="blog-item">
+          <p class="blog-excerpt">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <a href="#" class="learn-more">{{ 'footer.learn_more' | translate }}</a>
+        </div>
+        <div class="blog-item">
+          <p class="blog-excerpt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+          <a href="#" class="learn-more">{{ 'footer.learn_more' | translate }}</a>
+        </div>
+      </div>
+      <button class="visit-blog-btn">{{ 'footer.visit_blog' | translate }}</button>
+    </div>
+  </div>
+  </div>
+</div>

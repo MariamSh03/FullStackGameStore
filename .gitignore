@@ -1,0 +1,32 @@
+# Ignore Visual Studio temporary files
+.vs/
+
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+
+# Ignore log files and directories
+*.log
+Logs/*
+**/Logs/*
+AdminPanel.Web/Logs/*
+
+# But keep .gitkeep files
+!**/.gitkeep
+!Logs/.gitkeep
+!AdminPanel.Web/Logs/.gitkeep
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore IDE files
+.idea/
+*.swp
+*.swo
+
+# Ignore OS files
+Thumbs.db

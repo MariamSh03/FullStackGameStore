@@ -243,270 +243,87 @@ namespace AdminPanel.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0e336c0d-2d4d-490b-9851-74bb6edfb40b"),
+                            Id = new Guid("f3ed9c55-5a2d-4c3b-8f19-b5ea04e45764"),
                             Name = "Strategy"
                         },
                         new
                         {
-                            Id = new Guid("5b78b85b-9797-4e9e-8124-9b21816ade77"),
+                            Id = new Guid("8a2023bb-df2b-4159-84e3-5705c30ff396"),
                             Name = "RPG"
                         },
                         new
                         {
-                            Id = new Guid("644a2bd1-7383-4e72-8352-cd0596508fa2"),
+                            Id = new Guid("ff9b9e82-b1b6-4a2e-8467-14a23a55a3cd"),
                             Name = "Sports"
                         },
                         new
                         {
-                            Id = new Guid("20be5e86-288d-4ecd-9c0b-e1894beb1e99"),
+                            Id = new Guid("268e0e46-4505-4cd3-b74a-cf484d98d98c"),
                             Name = "Races"
                         },
                         new
                         {
-                            Id = new Guid("edabc16d-c23c-4f37-800c-95f9c1af8627"),
+                            Id = new Guid("54d32d47-d6be-48cd-9fed-66a63e71611f"),
                             Name = "Action"
                         },
                         new
                         {
-                            Id = new Guid("79619735-2f47-4499-883b-5b5eb5ba79e0"),
+                            Id = new Guid("4d5d3b49-5104-440f-90ac-225283dacd5b"),
                             Name = "Adventure"
                         },
                         new
                         {
-                            Id = new Guid("05642ebf-05c7-48f6-82cf-29fdbc209217"),
+                            Id = new Guid("8281a2d3-6dae-47b8-8bc7-21332ebb2a9b"),
                             Name = "Puzzle & Skill"
                         },
                         new
                         {
-                            Id = new Guid("c5d0caf7-aa67-45c2-b720-47ad5a0152fa"),
+                            Id = new Guid("22d53603-564a-4ef6-9918-47b2a74b613c"),
                             Name = "RTS",
-                            ParentGenreId = new Guid("0e336c0d-2d4d-490b-9851-74bb6edfb40b")
+                            ParentGenreId = new Guid("f3ed9c55-5a2d-4c3b-8f19-b5ea04e45764")
                         },
                         new
                         {
-                            Id = new Guid("f3cf4384-84f7-491e-82be-6207196434b9"),
+                            Id = new Guid("b59956e8-8ff3-465c-988d-673937f3c0b4"),
                             Name = "TBS",
-                            ParentGenreId = new Guid("0e336c0d-2d4d-490b-9851-74bb6edfb40b")
+                            ParentGenreId = new Guid("f3ed9c55-5a2d-4c3b-8f19-b5ea04e45764")
                         },
                         new
                         {
-                            Id = new Guid("d09be634-ea0c-4d3c-87d6-387a7d1bc89f"),
+                            Id = new Guid("66e4debd-0d33-40d4-9949-b30d07c9694f"),
                             Name = "Rally",
-                            ParentGenreId = new Guid("20be5e86-288d-4ecd-9c0b-e1894beb1e99")
+                            ParentGenreId = new Guid("268e0e46-4505-4cd3-b74a-cf484d98d98c")
                         },
                         new
                         {
-                            Id = new Guid("67d66e11-90b5-420e-8cda-12ca5eb67ad2"),
+                            Id = new Guid("f3e266a3-394b-4737-a14e-e06a51ff9dcd"),
                             Name = "Arcade",
-                            ParentGenreId = new Guid("20be5e86-288d-4ecd-9c0b-e1894beb1e99")
+                            ParentGenreId = new Guid("268e0e46-4505-4cd3-b74a-cf484d98d98c")
                         },
                         new
                         {
-                            Id = new Guid("daea1f5e-8e4a-4d4e-91a9-280aa4ef6bad"),
+                            Id = new Guid("aef73d6b-4544-4b2c-90d2-46acd83ff47a"),
                             Name = "Formula",
-                            ParentGenreId = new Guid("20be5e86-288d-4ecd-9c0b-e1894beb1e99")
+                            ParentGenreId = new Guid("268e0e46-4505-4cd3-b74a-cf484d98d98c")
                         },
                         new
                         {
-                            Id = new Guid("a6b3bde3-bbb6-4dd5-b477-05dcd225f42e"),
+                            Id = new Guid("a395d5d8-c6e5-4344-9be3-5d984e0198b4"),
                             Name = "Off-road",
-                            ParentGenreId = new Guid("20be5e86-288d-4ecd-9c0b-e1894beb1e99")
+                            ParentGenreId = new Guid("268e0e46-4505-4cd3-b74a-cf484d98d98c")
                         },
                         new
                         {
-                            Id = new Guid("a95307f8-e569-4958-8780-a9ae3b72808d"),
+                            Id = new Guid("936ffefb-a006-4191-8100-20dded5fc9c7"),
                             Name = "FPS",
-                            ParentGenreId = new Guid("edabc16d-c23c-4f37-800c-95f9c1af8627")
+                            ParentGenreId = new Guid("54d32d47-d6be-48cd-9fed-66a63e71611f")
                         },
                         new
                         {
-                            Id = new Guid("5c2e2c42-f1ff-4dc8-be6b-ebc74464f950"),
+                            Id = new Guid("1f943774-8d9c-4632-9e5e-116f319fcfc1"),
                             Name = "TPS",
-                            ParentGenreId = new Guid("edabc16d-c23c-4f37-800c-95f9c1af8627")
+                            ParentGenreId = new Guid("54d32d47-d6be-48cd-9fed-66a63e71611f")
                         });
-                });
-
-            modelBuilder.Entity("AdminPanel.Entity.Localization.GameLocalizationEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("GameId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("LanguageCode")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GameId", "LanguageCode")
-                        .IsUnique();
-
-                    b.ToTable("GameLocalizations");
-                });
-
-            modelBuilder.Entity("AdminPanel.Entity.Localization.GenreLocalizationEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("GenreId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("LanguageCode")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GenreId", "LanguageCode")
-                        .IsUnique();
-
-                    b.ToTable("GenreLocalizations");
-                });
-
-            modelBuilder.Entity("AdminPanel.Entity.Localization.LocalizationEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("EntityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("EntityType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("FieldName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LanguageCode")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EntityId", "EntityType", "FieldName", "LanguageCode")
-                        .IsUnique();
-
-                    b.ToTable("Localizations");
-                });
-
-            modelBuilder.Entity("AdminPanel.Entity.Localization.PlatformLocalizationEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LanguageCode")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<Guid>("PlatformId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlatformId", "LanguageCode")
-                        .IsUnique();
-
-                    b.ToTable("PlatformLocalizations");
-                });
-
-            modelBuilder.Entity("AdminPanel.Entity.Localization.PublisherLocalizationEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CompanyName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HomePage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LanguageCode")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<Guid>("PublisherId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PublisherId", "LanguageCode")
-                        .IsUnique();
-
-                    b.ToTable("PublisherLocalizations");
                 });
 
             modelBuilder.Entity("AdminPanel.Entity.OrderEntity", b =>
@@ -570,22 +387,22 @@ namespace AdminPanel.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("939e08d2-16ff-432c-899f-7382241034e2"),
+                            Id = new Guid("e0df8119-39d1-4bce-92bf-1f9a15207fa0"),
                             Type = "Mobile"
                         },
                         new
                         {
-                            Id = new Guid("3db9f881-1791-4241-9c30-eb7e41c3169e"),
+                            Id = new Guid("641b74bc-55c0-4ade-9e5f-fea6aefffd61"),
                             Type = "Desktop"
                         },
                         new
                         {
-                            Id = new Guid("614f8658-40dc-45ef-af35-a3ae9d6b59ec"),
+                            Id = new Guid("3c2b1528-fa27-450b-b789-4573ed2b3c7c"),
                             Type = "Console"
                         },
                         new
                         {
-                            Id = new Guid("f056254f-da72-4e4b-8d09-acb9ef5cd430"),
+                            Id = new Guid("53c519a3-fb44-411f-b180-2e580dd5dd23"),
                             Type = "Browser"
                         });
                 });
@@ -807,50 +624,6 @@ namespace AdminPanel.Dal.Migrations
                         .HasForeignKey("PlatformId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("AdminPanel.Entity.Localization.GameLocalizationEntity", b =>
-                {
-                    b.HasOne("AdminPanel.Entity.GameEntity", "Game")
-                        .WithMany()
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-                });
-
-            modelBuilder.Entity("AdminPanel.Entity.Localization.GenreLocalizationEntity", b =>
-                {
-                    b.HasOne("AdminPanel.Entity.GenreEntity", "Genre")
-                        .WithMany()
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Genre");
-                });
-
-            modelBuilder.Entity("AdminPanel.Entity.Localization.PlatformLocalizationEntity", b =>
-                {
-                    b.HasOne("AdminPanel.Entity.PlatformEntity", "Platform")
-                        .WithMany()
-                        .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Platform");
-                });
-
-            modelBuilder.Entity("AdminPanel.Entity.Localization.PublisherLocalizationEntity", b =>
-                {
-                    b.HasOne("AdminPanel.Entity.PublisherEntity", "Publisher")
-                        .WithMany()
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Publisher");
                 });
 
             modelBuilder.Entity("AdminPanel.Entity.OrderGameEntity", b =>

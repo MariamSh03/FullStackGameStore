@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 import { GameService, Game } from '../../services/game.service';
 import { CommentService, Comment } from '../../services/comment.service';
 import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-game',
-  imports: [CommonModule, FormsModule, TranslateModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })

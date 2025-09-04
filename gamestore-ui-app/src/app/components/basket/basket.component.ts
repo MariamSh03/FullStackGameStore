@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
 import { OrderService, OrderGame } from '../../services/order.service';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.css'],
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslatePipe],
   standalone: true
 })
 export class BasketComponent implements OnInit {

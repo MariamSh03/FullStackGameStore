@@ -1,27 +1,35 @@
-<nav class="header-nav">
+<nav class="header-nav" (click)="onDocumentClick($event)">
   <div class="nav-container">
     <div class="logo">
       <a routerLink="/">logo</a>
     </div>
-    <ul class="nav-menu">
-      <li><a routerLink="/games">{{ 'navbar.games' | translate }}</a></li>
-      <li><a routerLink="/genres">{{ 'navbar.genres' | translate }}</a></li>
-      <li><a routerLink="/publishers">{{ 'navbar.publishers' | translate }}</a></li>
-      <li><a routerLink="/orders">{{ 'navbar.orders' | translate }}</a></li>
-      <li><a routerLink="/basket">{{ 'navbar.cart' | translate }}</a></li>
-    </ul>
-    <div class="language-dropdown">
-      <button class="language-btn" (click)="toggleDropdown()">
-        {{ selectedLanguage.label }}
-        <span class="dropdown-arrow" [class.open]="isDropdownOpen">▼</span>
-      </button>
-      <ul class="language-options" [class.show]="isDropdownOpen">
-        <li *ngFor="let language of languages" 
-            (click)="selectLanguage(language)"
-            [class.active]="language.code === selectedLanguage.code">
-          {{ language.label }}
-        </li>
+    <div class="nav-content">
+      <ul class="nav-menu">
+        <li><a routerLink="/games">{{ 'navbar.games' | translate }}</a></li>
+        <li><a routerLink="/genres">{{ 'navbar.genres' | translate }}</a></li>
+        <li><a routerLink="/publishers">{{ 'navbar.publishers' | translate }}</a></li>
+        <li><a routerLink="/orders">{{ 'navbar.orders' | translate }}</a></li>
+        <li><a routerLink="/basket">{{ 'navbar.cart' | translate }}</a></li>
       </ul>
+      
+      <!-- Language Selector -->
+      <div class="language-selector">
+        <button class="language-toggle" (click)="toggleLanguageDropdown()">
+          <span class="lang-code">{{ localizationService.getCurrentLanguage().code.toUpperCase() }}</span>
+          <span class="dropdown-arrow" [class.open]="isLanguageDropdownOpen()">▼</span>
+        </button>
+        
+        <div class="language-dropdown" [class.open]="isLanguageDropdownOpen()">
+          @for (language of localizationService.availableLanguages; track language.code) {
+            <button 
+              class="language-option" 
+              [class.active]="language.code === localizationService.currentLanguage()"
+              (click)="selectLanguage(language)">
+              <span class="language-name">{{ language.name }}</span>
+            </button>
+          }
+        </div>
+      </div>
     </div>
   </div>
 </nav>

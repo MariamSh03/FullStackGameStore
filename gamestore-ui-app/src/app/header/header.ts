@@ -1,56 +1,34 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-
-interface Language {
-  code: string;
-  label: string;
-}
+import { LocalizationService, Language } from '../services/localization.service';
+import { TranslatePipe } from '../pipes/translate.pipe';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, CommonModule, TranslateModule],
+  imports: [RouterLink, CommonModule, TranslatePipe],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
 export class Header {
-  isDropdownOpen = false;
+  public isLanguageDropdownOpen = signal(false);
   
-  languages: Language[] = [
-    { code: 'en', label: 'ENG' },
-    { code: 'geo', label: 'GEO' },
-    { code: 'de', label: 'DE' }
-  ];
-  
-  selectedLanguage: Language = this.languages[0]; // Default to ENG
+  constructor(public localizationService: LocalizationService) {}
 
-  constructor(private translate: TranslateService) {
-    // Set default language
-    this.translate.setDefaultLang('en');
-    this.translate.use('en');
+  public toggleLanguageDropdown(): void {
+    this.isLanguageDropdownOpen.update(value => !value);
   }
 
-  toggleDropdown(): void {
-    this.isDropdownOpen = !this.isDropdownOpen;
+  public selectLanguage(language: Language): void {
+    this.localizationService.setLanguage(language.code);
+    this.isLanguageDropdownOpen.set(false);
   }
 
-  selectLanguage(language: Language): void {
-    this.selectedLanguage = language;
-    this.isDropdownOpen = false;
-    
-    // Change the application language
-    this.translate.use(language.code);
-    console.log('Language changed to:', language.code);
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: Event): void {
+  // Close dropdown when clicking outside
+  public onDocumentClick(event: Event): void {
     const target = event.target as HTMLElement;
-    const dropdown = target.closest('.language-dropdown');
-    
-    if (!dropdown && this.isDropdownOpen) {
-      this.isDropdownOpen = false;
+    if (!target.closest('.language-selector')) {
+      this.isLanguageDropdownOpen.set(false);
     }
   }
 }

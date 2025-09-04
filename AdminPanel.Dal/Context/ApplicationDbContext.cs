@@ -1,6 +1,5 @@
 ﻿using AdminPanel.Entity;
 using AdminPanel.Entity.Authorization;
-using AdminPanel.Entity.Localization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -31,17 +30,6 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity>
     public DbSet<OrderGameEntity> OrderGames { get; set; }
 
     public DbSet<CommentEntity> Comments { get; set; }
-
-    // Localization Entities
-    public DbSet<LocalizationEntity> Localizations { get; set; }
-
-    public DbSet<GameLocalizationEntity> GameLocalizations { get; set; }
-
-    public DbSet<GenreLocalizationEntity> GenreLocalizations { get; set; }
-
-    public DbSet<PublisherLocalizationEntity> PublisherLocalizations { get; set; }
-
-    public DbSet<PlatformLocalizationEntity> PlatformLocalizations { get; set; }
 
     // Authorization Entities
     public DbSet<PermissionEntity> Permissions { get; set; }
@@ -108,52 +96,6 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity>
         .HasForeignKey(c => c.GameId)
         .OnDelete(DeleteBehavior.Cascade);
 
-        // Configure localization entities relationships
-        builder.Entity<GameLocalizationEntity>()
-            .HasOne(gl => gl.Game)
-            .WithMany()
-            .HasForeignKey(gl => gl.GameId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.Entity<GenreLocalizationEntity>()
-            .HasOne(gl => gl.Genre)
-            .WithMany()
-            .HasForeignKey(gl => gl.GenreId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.Entity<PublisherLocalizationEntity>()
-            .HasOne(pl => pl.Publisher)
-            .WithMany()
-            .HasForeignKey(pl => pl.PublisherId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.Entity<PlatformLocalizationEntity>()
-            .HasOne(pl => pl.Platform)
-            .WithMany()
-            .HasForeignKey(pl => pl.PlatformId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        // Configure unique constraints for localization entities
-        builder.Entity<GameLocalizationEntity>()
-            .HasIndex(gl => new { gl.GameId, gl.LanguageCode })
-            .IsUnique();
-
-        builder.Entity<GenreLocalizationEntity>()
-            .HasIndex(gl => new { gl.GenreId, gl.LanguageCode })
-            .IsUnique();
-
-        builder.Entity<PublisherLocalizationEntity>()
-            .HasIndex(pl => new { pl.PublisherId, pl.LanguageCode })
-            .IsUnique();
-
-        builder.Entity<PlatformLocalizationEntity>()
-            .HasIndex(pl => new { pl.PlatformId, pl.LanguageCode })
-            .IsUnique();
-
-        builder.Entity<LocalizationEntity>()
-            .HasIndex(l => new { l.EntityId, l.EntityType, l.FieldName, l.LanguageCode })
-            .IsUnique();
-
         // Seed predefined genres and subgenres
         var strategyId = Guid.NewGuid();
         var rtsId = Guid.NewGuid();
@@ -189,16 +131,11 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity>
             new GenreEntity { Id = tpsId, Name = "TPS", ParentGenreId = actionId });
 
         // Seed predefined platforms
-        var mobileId = Guid.NewGuid();
-        var desktopId = Guid.NewGuid();
-        var consoleId = Guid.NewGuid();
-        var browserId = Guid.NewGuid();
-
         builder.Entity<PlatformEntity>().HasData(
-            new PlatformEntity { Id = mobileId, Type = "Mobile" },
-            new PlatformEntity { Id = desktopId, Type = "Desktop" },
-            new PlatformEntity { Id = consoleId, Type = "Console" },
-            new PlatformEntity { Id = browserId, Type = "Browser" });
+            new PlatformEntity { Id = Guid.NewGuid(), Type = "Mobile" },
+            new PlatformEntity { Id = Guid.NewGuid(), Type = "Desktop" },
+            new PlatformEntity { Id = Guid.NewGuid(), Type = "Console" },
+            new PlatformEntity { Id = Guid.NewGuid(), Type = "Browser" });
 
         builder.Entity<RolePermissionEntity>()
             .HasKey(rp => new { rp.RoleId, rp.PermissionId });

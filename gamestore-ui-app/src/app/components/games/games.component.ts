@@ -2,23 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { GameService, Game, GameSearchParams } from '../../services/game.service';
 import { GenreService, Genre } from '../../services/genre.service';
 import { PublisherService, Publisher } from '../../services/publisher.service';
 import { PlatformService, Platform } from '../../services/platform.service';
 import { ApiConfigService } from '../../services/api-config.service';
+import { TranslatePipe } from '../../pipes/translate.pipe';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-games',
-  imports: [RouterLink, FormsModule, CommonModule, TranslateModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink, TranslatePipe],
   templateUrl: './games.component.html',
-  styleUrl: './games.component.css'
+  styleUrls: ['./games.component.css']
 })
+
 export class GamesComponent implements OnInit {
   games: Game[] = [];
   filteredGames: Game[] = [];
-  loading = false;
+  loading = new BehaviorSubject<boolean>(false);
   error: string | null = null;
   
   // Pagination
@@ -147,7 +150,7 @@ export class GamesComponent implements OnInit {
   // All filtering and sorting is handled by the backend
 
   loadGames() {
-    this.loading = true;
+    this.loading.next(true);
     this.error = null;
 
     // Parse price from string inputs
@@ -182,7 +185,7 @@ export class GamesComponent implements OnInit {
         this.totalCount = response.totalCount;
         this.totalPages = response.totalPages;
         this.currentPage = response.currentPage;
-        this.loading = false;
+        this.loading.next(false);
         
         // No need for local filters since backend handles filtering
       },
@@ -191,7 +194,7 @@ export class GamesComponent implements OnInit {
         this.error = 'Failed to load games from server. Please check your connection.';
         this.games = [];
         this.filteredGames = [];
-        this.loading = false;
+        this.loading.next(false);
       }
     });
   }

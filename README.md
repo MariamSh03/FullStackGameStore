@@ -1,47 +1,67 @@
-# Epic 11 - Localization
+# Epic 10 - UI Design
 
-Implement more than one language support.  
+Implement design by mock-ups of the Game Store UI.
+
 ## General requirements
+
 Please use the following Angular Front-end: [gamestore-ui-app](gamestore-ui-app)  
 
 System should support the following features: 
-* English localization by default.
-* Two additional localizations, for example, student native (if it is not English) and any other.	
+* User friendly design
+* Game pictures
+* Game rating
    
+## Technical information
+Mockups are [located here](Mockups)     
 
-## Technical specifications:
-#### Database
-	Database models should be extended to store entity data for different localizations, for example, Game information in EN and UA.
-#### Requests
-	Each request contains an Accept-Language header with the current selected localization in value.
-  
-## Limitations
-#### Translation
-	Any translation browser tools and 3rd party services are prohibited from using.
 ## Additional requirements
-#### Entity localization
-	Main entities information should be displayed respecting selected localization. The English version should be displayed by default if there is no data version in a database for selected localization.
+#### Game Pictures
+	Game pictures can be hardcoded for now.
 
-### Entities
+#### Links
+	Only footer navigation links should be active.
+
+#### Comment/game rating
+	The like button should be interactive, and users can like comments by pressing the button, but this value should be stored only on the UI side. Once the User refreshes the page all likes are cleared.
+
+#### Comment likes
+	The like button should be interactive, and users can like comments by pressing the button.
+	Once User refreshes the page all likes are cleared.
+
+#### Price tax
+	Tax should be calculated as some configurable percentage from the game price.
+
+#### Discount
+	Display crossed old price value and highlighted new price value by discount.
 
 ## Task Description
 
-### E11 US1 - User story 1
+### E10 US1 - User story 1
 
-Implement localization switching on UI side.
+Update the Angular project to implement the suggested UI design by mock-ups.
 
-### E11 US2 - User story 2
-Update the game store app to return data respecting localization.
+### E10 US2 - User story 2
+Footer links should be implemented and navigate users through game store pages.
 
-### E11 US3 - User story 3
-Update the game store app to return data respecting localization.
+### E10 US3 - User story 3
+The comment rating feature should be implemented on the UI side.
 
-### E11 US4 - User story 4
+### E10 US4 - User story 4
 
-Update entity deletion in way to clear all localizations in the scope of this operation.
+The game rating feature should be implemented on UI side.
 
-## Non-functional requirement
+### E10 US5 - User story 5
+Comment Like feature should be implemented on the UI side.
 
-**E11 NFR1E1**
-Implement The SQL function to return game info for specific localization.**E11 NFR2E1  [Optional]**
-	Implement transactions with appropriate isolation levels to prevent data updating data during selection.
+### E10 US6 - User story 6
+Implement discounts on the game, cart, and order pages.
+
+### E10 US7 - User story 7
+Add tax information on the game page.
+
+## Non-functional requirement [Optional]
+
+**E10 NFR1**  
+UI implementation should be responsive.  
+**E10 NFR2**  
+UI implementation should look identically in the multiple browsers.

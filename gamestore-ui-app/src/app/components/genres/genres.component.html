@@ -2,8 +2,8 @@
 <section class="hero">
   <div class="hero-container">
     <div class="hero-content">
-      <h1>{{ 'genres.title' | translate }}</h1>
-      <p>{{ 'genres.subtitle' | translate }}</p>
+      <h1>Game Genres</h1>
+      <p>Discover games by category</p>
     </div>
   </div>
 </section>
@@ -13,7 +13,7 @@
   <!-- Loading State -->
   <div *ngIf="loading" class="loading-container">
     <div class="loading-spinner"></div>
-    <p>{{ 'genres.loading' | translate }}</p>
+    <p>Loading genres...</p>
   </div>
 
   <!-- Error State -->
@@ -25,7 +25,7 @@
   <div *ngIf="!loading && !error" class="content-wrapper">
     <main class="main-content">
       <div class="results-header">
-        <h2>{{ 'genres.all_genres' | translate }} ({{ genres.length }})</h2>
+        <h2>All Genres ({{ genres.length }})</h2>
       </div>
 
       <!-- Parent Genres with their children -->
@@ -38,7 +38,7 @@
           
           <!-- Child genres -->
           <div *ngIf="getChildGenres(parentGenre.id).length > 0" class="child-genres">
-            <h4>{{ 'genres.sub_genres' | translate }}</h4>
+            <h4>Sub-genres:</h4>
             <div class="child-genre-list">
               <div *ngFor="let childGenre of getChildGenres(parentGenre.id)" class="child-genre">
                 <span class="child-genre-name">{{ childGenre.name }}</span>
@@ -51,14 +51,14 @@
 
       <!-- Standalone genres (no children, used as children themselves, or orphaned) -->
       <div class="standalone-genres">
-        <h3>{{ 'genres.all_genres_list' | translate }}</h3>
+        <h3>All Genres List</h3>
         <div class="genre-list">
           <div *ngFor="let genre of genres" class="genre-item">
             <div class="genre-info">
               <span class="genre-name">{{ genre.name }}</span>
               <span class="genre-details">
                 ID: {{ genre.id }}
-                <span *ngIf="genre.parentGenreId"> | {{ 'genres.parent' | translate }}: {{ genre.parentGenreId }}</span>
+                <span *ngIf="genre.parentGenreId"> | Parent: {{ genre.parentGenreId }}</span>
               </span>
             </div>
           </div>

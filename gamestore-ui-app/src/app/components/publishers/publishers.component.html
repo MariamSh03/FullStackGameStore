@@ -2,8 +2,8 @@
 <section class="hero">
   <div class="hero-container">
     <div class="hero-content">
-      <h1>{{ 'publishers.title' | translate }}</h1>
-      <p>{{ 'publishers.subtitle' | translate }}</p>
+      <h1>Game Publishers</h1>
+      <p>Discover games by publisher</p>
     </div>
   </div>
 </section>
@@ -13,7 +13,7 @@
   <!-- Loading State -->
   <div *ngIf="loading" class="loading-container">
     <div class="loading-spinner"></div>
-    <p>{{ 'publishers.loading' | translate }}</p>
+    <p>Loading publishers...</p>
   </div>
 
   <!-- Error State -->
@@ -25,7 +25,7 @@
   <div *ngIf="!loading && !error" class="content-wrapper">
     <main class="main-content">
       <div class="results-header">
-        <h2>{{ 'publishers.all_publishers' | translate }} ({{ publishers.length }})</h2>
+        <h2>All Publishers ({{ publishers.length }})</h2>
       </div>
 
       <div class="publishers-grid">
@@ -35,13 +35,13 @@
             <div class="publisher-details">
               <div class="publisher-id">ID: {{ publisher.id }}</div>
               <div *ngIf="publisher.homePage" class="publisher-homepage">
-                <span>{{ 'publishers.homepage' | translate }} </span>
+                <span>Homepage: </span>
                 <a [href]="publisher.homePage" target="_blank" rel="noopener noreferrer">
                   {{ publisher.homePage }}
                 </a>
               </div>
               <div *ngIf="publisher.description" class="publisher-description">
-                <span>{{ 'publishers.description' | translate }} </span>{{ publisher.description }}
+                <span>Description: </span>{{ publisher.description }}
               </div>
             </div>
           </div>

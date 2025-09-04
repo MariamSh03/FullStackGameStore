@@ -2,8 +2,8 @@
 <section class="hero">
   <div class="hero-container">
     <div class="hero-content">
-      <h1>{{ 'home.hero_title' | translate }}</h1>
-      <p>{{ 'home.hero_subtitle' | translate }}</p>
+      <h1>{{ 'home.heroTitle' | translate }}</h1>
+      <p>{{ 'home.heroSubtitle' | translate }}</p>
     </div>
   </div>
 </section>
@@ -17,7 +17,7 @@
         type="text" 
         [(ngModel)]="searchQuery" 
         (input)="onSearchChange()" 
-        [placeholder]="'games.search_placeholder' | translate"
+        [placeholder]="'games.searchPlaceholder' | translate"
         class="main-search-input">
       <span class="search-icon">🔍</span>
     </div>
@@ -27,13 +27,13 @@
     <!-- Main Content - Games Grid -->
     <main class="main-content">
       <div class="results-header">
-        <h2>{{ 'games.games_title' | translate }}</h2>
+        <h2>{{ 'games.title' | translate }}</h2>
       </div>
 
       <!-- Loading State -->
-      <div *ngIf="loading" class="loading-container">
+      <div *ngIf="loading | async" class="loading-container">
         <div class="loading-spinner"></div>
-        <p>{{ 'games.loading' | translate }}</p>
+        <p>{{ 'games.loadingGames' | translate }}</p>
       </div>
 
       <!-- Error State -->
@@ -42,7 +42,7 @@
       </div>
 
       <!-- Games Grid -->
-      <div *ngIf="!loading" class="games-grid">
+      <div *ngIf="!(loading | async)" class="games-grid">
         <div *ngFor="let game of filteredGames.slice(0, 8)" class="game-card" [routerLink]="['/game', game.id]">
           <div class="game-image">
             <img 
@@ -96,24 +96,24 @@
     <!-- Right Sidebar Filters -->
     <aside class="sidebar">
       <div class="filter-section">
-        <h3>{{ 'games.refine_results' | translate }}</h3>
+        <h3>{{ 'games.refineResults' | translate }}</h3>
         
         <!-- Sorting -->
         <div class="filter-group">
           <label>{{ 'games.sorting' | translate }}</label>
           <select [(ngModel)]="sortBy" (change)="onSortChange()" class="sort-select">
-            <option value="popular">{{ 'games.sort_options.popular' | translate }}</option>
-            <option value="name">{{ 'games.sort_options.name' | translate }}</option>
-            <option value="price-low">{{ 'games.sort_options.price_low' | translate }}</option>
-            <option value="price-high">{{ 'games.sort_options.price_high' | translate }}</option>
-            <option value="rating">{{ 'games.sort_options.rating' | translate }}</option>
-            <option value="newest">{{ 'games.sort_options.newest' | translate }}</option>
+            <option value="popular">{{ 'games.sortOptions.popular' | translate }}</option>
+            <option value="name">{{ 'games.sortOptions.name' | translate }}</option>
+            <option value="price-low">{{ 'games.sortOptions.priceLow' | translate }}</option>
+            <option value="price-high">{{ 'games.sortOptions.priceHigh' | translate }}</option>
+            <option value="rating">{{ 'games.sortOptions.rating' | translate }}</option>
+            <option value="newest">{{ 'games.sortOptions.newest' | translate }}</option>
           </select>
         </div>
 
         <!-- Genre Filter -->
         <div class="filter-group">
-          <h4>{{ 'games.genre' | translate }}</h4>
+          <h4>{{ 'games.filters.genre' | translate }}</h4>
           <div class="checkbox-group">
             <label *ngFor="let genre of genreNames" class="checkbox-label">
               <input 
@@ -127,7 +127,7 @@
 
         <!-- Platform Filter -->
         <div class="filter-group">
-          <h4>{{ 'games.platform' | translate }}</h4>
+          <h4>{{ 'games.filters.platform' | translate }}</h4>
           <div class="checkbox-group">
             <label *ngFor="let platform of platformNames" class="checkbox-label">
               <input 
@@ -141,11 +141,11 @@
 
         <!-- Price Range -->
         <div class="filter-group">
-          <h4>{{ 'games.price_range' | translate }}</h4>
+          <h4>{{ 'games.filters.priceRange' | translate }}</h4>
           <div class="price-range">
             <div class="price-inputs">
               <div class="price-input-group">
-                <label>{{ 'games.from' | translate }}</label>
+                <label>{{ 'games.filters.from' | translate }}</label>
                 <input 
                   type="text" 
                   [(ngModel)]="priceFrom" 
@@ -154,7 +154,7 @@
                   class="price-input">
               </div>
               <div class="price-input-group">
-                <label>{{ 'games.to' | translate }}</label>
+                <label>{{ 'games.filters.to' | translate }}</label>
                 <input 
                   type="text" 
                   [(ngModel)]="priceTo" 
@@ -168,7 +168,7 @@
 
         <!-- Publisher Filter -->
         <div class="filter-group">
-          <h4>{{ 'games.publisher' | translate }}</h4>
+          <h4>{{ 'games.filters.publisher' | translate }}</h4>
           <div class="checkbox-group">
             <label *ngFor="let publisher of publisherNames" class="checkbox-label">
               <input 

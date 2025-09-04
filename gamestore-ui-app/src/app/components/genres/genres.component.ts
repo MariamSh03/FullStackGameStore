@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
 import { GenreService, Genre } from '../../services/genre.service';
 
 @Component({
   selector: 'app-genres',
-  imports: [CommonModule, TranslateModule],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './genres.component.html',
-  styleUrl: './genres.component.css'
+  styleUrls: ['./genres.component.css']
 })
 export class GenresComponent implements OnInit {
   genres: Genre[] = [];
-  loading = false;
+  loading = new BehaviorSubject<boolean>(false);
   error: string | null = null;
 
   // Group genres by parent for better display
@@ -25,19 +26,19 @@ export class GenresComponent implements OnInit {
   }
 
   loadGenres() {
-    this.loading = true;
+    this.loading.next(true);
     this.error = null;
 
     this.genreService.getAllGenres().subscribe({
       next: (genres) => {
         this.genres = genres;
         this.organizeGenres();
-        this.loading = false;
+        this.loading.next(false);
       },
       error: (error) => {
         console.error('Failed to load genres:', error);
         this.error = 'Failed to load genres from server. Please check your connection.';
-        this.loading = false;
+        this.loading.next(false);
       }
     });
   }

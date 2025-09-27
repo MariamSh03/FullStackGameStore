@@ -8,6 +8,7 @@ using AdminPanel.Bll.Services;
 using AdminPanel.Dal.Context;
 using AdminPanel.Dal.Repositories;
 using AdminPanel.Dal.Repositories.Implementations;
+using AdminPanel.Dal.Seeders;
 using AdminPanel.Entity;
 using AdminPanel.Entity.Authorization;
 using AdminPanel.Web.Authorization;
@@ -230,6 +231,9 @@ builder.Services.AddScoped<RolePermissionSeeder>();
 // Register user seeder
 builder.Services.AddScoped<UserSeeder>();
 
+// Register game localization seeder
+builder.Services.AddScoped<GameLocalizationSeeder>();
+
 // Add configuration for external auth
 builder.Services.Configure<ExternalAuthConfig>(builder.Configuration.GetSection("ExternalAuth"));
 
@@ -294,6 +298,9 @@ using (var scope = app.Services.CreateScope())
 
     var userSeeder = scope.ServiceProvider.GetRequiredService<UserSeeder>();
     await userSeeder.SeedDefaultUsersAsync();
+
+    var gameLocalizationSeeder = scope.ServiceProvider.GetRequiredService<GameLocalizationSeeder>();
+    await gameLocalizationSeeder.SeedGameLocalizationsAsync();
 }
 
 app.Run();

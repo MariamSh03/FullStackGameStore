@@ -31,6 +31,8 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity>
 
     public DbSet<CommentEntity> Comments { get; set; }
 
+    public DbSet<GameLocalizationEntity> GameLocalizations { get; set; }
+
     // Authorization Entities
     public DbSet<PermissionEntity> Permissions { get; set; }
 
@@ -43,6 +45,10 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity>
         // Configure many-to-many relationships
         builder.Entity<GameGenreEntity>()
             .HasKey(gg => new { gg.GameId, gg.GenreId });
+
+        builder.Entity<GameLocalizationEntity>()
+        .HasIndex(gl => new { gl.GameId, gl.Language })
+        .IsUnique();
 
         builder.Entity<OrderGameEntity>()
             .HasKey(og => new { og.OrderId, og.ProductId });

@@ -35,4 +35,6 @@ public class GameEntity
     public Guid PublisherId { get; set; }
 
     public bool IsDeleted { get; set; }
+
+    public List<GameLocalizationEntity> Localizations { get; set; }
 }

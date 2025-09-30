@@ -70,8 +70,6 @@ export class GameService {
         // Backend returns PagedGamesResultDto with proper pagination info
         return this.http.get<any>(url, { params: httpParams }).pipe(
           switchMap(backendResponse => {
-            console.log('🔍 Backend response:', backendResponse);
-            
             // Transform backend response to match frontend GameResponse format
             const response: GameResponse = {
               data: backendResponse.games || backendResponse.Games || [],
@@ -80,7 +78,6 @@ export class GameService {
               totalPages: backendResponse.totalPages || backendResponse.TotalPages || 1
             };
             
-            console.log('✅ Transformed response:', response);
             return of(response);
           })
         );

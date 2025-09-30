@@ -19,20 +19,13 @@ export class PlatformService {
   ) {}
 
   getAllPlatforms(): Observable<Platform[]> {
-    console.log('🎮 PlatformService.getAllPlatforms() called');
     return this.apiConfig.config$.pipe(
       filter(config => config !== null),
       take(1),
       switchMap(config => {
         const url = this.apiConfig.buildUrl(config!.platformsApiUrl);
-        console.log('🌐 Fetching platforms from URL:', url);
-        console.log('⚙️ Using platformsApiUrl:', config!.platformsApiUrl);
-        console.log('🏠 Base URL:', config!.baseApiUrl);
         
         return this.http.get<Platform[]>(url).pipe(
-          tap((response) => {
-            console.log('📦 Raw platform response:', response);
-          }),
           catchError((error) => {
             console.error('💥 Platform API error:', error);
             throw error;

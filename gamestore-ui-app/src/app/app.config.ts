@@ -14,15 +14,13 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([
         (req, next) => {
           const localizationService = inject(LocalizationService);
-          const currentLanguage = localizationService.getCurrentLanguage();
+          const currentLanguageCode = localizationService.currentLanguage();
           
           const localizedRequest = req.clone({
             setHeaders: {
-              'Accept-Language': currentLanguage.code
+              'Accept-Language': currentLanguageCode
             }
           });
-
-          console.log(`🌐 Adding Accept-Language header: ${currentLanguage.code} to request: ${req.url}`);
           return next(localizedRequest);
         }
       ])

@@ -158,19 +158,15 @@ export class ApiConfigService {
       banUserApiUrl: 'comments/ban'
     };
     
-    console.log('🔧 Initializing with default API configuration...');
     this.configSubject.next(defaultConfig);
     this.configLoaded = true;
   }
 
   private async loadConfiguration(): Promise<void> {
     try {
-      console.log('🔄 Attempting to load custom API configuration from /assets/configuration.json...');
       const config = await this.http.get<ApiConfig>('/assets/configuration.json').toPromise();
-      console.log('✅ Custom API configuration loaded successfully:', config);
       this.configSubject.next(config!);
     } catch (error) {
-      console.log('⚠️ Custom configuration not found, using default configuration');
       // Default config is already loaded, so we don't need to do anything
     }
   }

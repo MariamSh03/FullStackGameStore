@@ -20,6 +20,8 @@ export class GameComponent implements OnInit {
   error: string | null = null;
   
   game: any = null;
+  private componentInitialized = false;
+  private languageEffectFirstRun = true;
 
   selectedImageIndex = 0;
   comments: any[] = [];
@@ -60,79 +62,80 @@ export class GameComponent implements OnInit {
     // Watch for language changes and reload game data automatically
     effect(() => {
       const currentLang = this.localizationService.currentLanguage();
-      console.log('🌐 Language changed to:', currentLang, '- reloading game...');
-      
-      // Only reload if we have a gameId and game data is loaded
-      if (this.gameId && this.game) {
-        this.tryLoadRealGame(this.gameId);
-      }
+      this.handleLanguageChange();
     });
   }
 
   ngOnInit() {
-    console.log('🎮 GameComponent initializing...');
     this.gameId = this.route.snapshot.paramMap.get('id');
-    console.log('📄 Game ID from route:', this.gameId);
     
     if (this.gameId) {
       // Set initial state and load real data immediately
       this.loading = true;
       this.error = null;
       this.game = null;
-      console.log('🔄 Loading real game data with ID:', this.gameId);
       this.tryLoadRealGame(this.gameId);
     } else {
       // Only load mock data if no gameId is provided
-      console.log('📝 No game ID provided, loading mock data...');
       this.loadMockGame();
+      // Mark component as initialized for mock data scenario
+      this.componentInitialized = true;
+    }
+  }
+
+  private handleLanguageChange() {
+    // Skip the first run (initial effect trigger)
+    if (this.languageEffectFirstRun) {
+      this.languageEffectFirstRun = false;
+      return;
+    }
+    
+    // Only reload if component is initialized, we have gameId, and not currently loading
+    if (this.componentInitialized && this.gameId && !this.loading && this.game) {
+      this.tryLoadRealGame(this.gameId);
     }
   }
 
   tryLoadRealGame(id: string) {
-    console.log('🔄 Trying to load real game data with ID:', id);
-
     // Set a timeout to ensure we don't wait indefinitely
     const timeoutId = setTimeout(() => {
-      console.log('⏰ API call timeout, loading mock data as fallback...');
       this.loading = false;
       this.error = 'Request timed out';
+      this.componentInitialized = true;
       this.loadMockGame();
     }, 3000); // 3 second timeout
 
     this.gameService.getGameById(id).subscribe({
       next: (game) => {
         clearTimeout(timeoutId);
-        console.log('✅ Real game data loaded:', game);
         
         if (game && Object.keys(game).length > 0) {
           // Update the game data and clear loading state
           this.game = { ...game, id: this.gameId };
           this.loading = false;
           this.error = null;
-          console.log('🔄 Updated game with real data:', this.game);
-          console.log('📝 Game description received:', this.game.description);
-          console.log('📝 Description length:', this.game.description?.length);
+          // Mark component as initialized after successful load
+          this.componentInitialized = true;
           // Load comments with real game data
           this.loadComments();
         } else {
-          console.log('⚠️ Empty game data received, loading mock data...');
           this.loading = false;
+          this.componentInitialized = true;
           this.loadMockGame();
         }
       },
       error: (error) => {
         clearTimeout(timeoutId);
-        console.error('❌ Failed to load real game from API:', error);
-        console.log('📝 Loading mock data due to API error');
+        console.error('Failed to load real game from API:', error);
         this.loading = false;
         this.error = 'Failed to load game data';
+        this.componentInitialized = true;
         this.loadMockGame();
       }
     });
   }
 
   private loadMockGame() {
-    console.log('📝 Loading mock game data...');
     this.loading = false;
     this.error = null;
     this.game = {
@@ -149,7 +152,6 @@ export class GameComponent implements OnInit {
       platform: 'PC',
       images: ['1', '2', '3', '4']
     };
-    console.log('✅ Mock game data loaded:', this.game);
     // Load comments after mock game is set
     this.loadComments();
   }
@@ -157,7 +159,6 @@ export class GameComponent implements OnInit {
   loadComments() {
     // Ensure game is loaded before trying to access its properties
     if (!this.game) {
-      console.warn('Game not loaded yet, using mock comments');
       this.comments = this.getMockComments();
       this.initializeLikeCounts();
       return;
@@ -268,7 +269,6 @@ export class GameComponent implements OnInit {
     }
     
     // Visual feedback
-    console.log(`Comment ${commentId} ${isCurrentlyLiked ? 'unliked' : 'liked'}. New count: ${this.getLikeCount(commentId)}`);
   }
 
   // Get current like count for a comment (includes UI changes)
@@ -296,7 +296,6 @@ export class GameComponent implements OnInit {
     
     this.orderService.addGameToCart(gameKey).subscribe({
       next: (response) => {
-        console.log('Added to cart:', this.game.name);
         alert(`${this.game.name} has been added to your cart!`);
       },
       error: (err) => {

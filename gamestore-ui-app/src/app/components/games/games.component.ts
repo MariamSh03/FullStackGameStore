@@ -62,7 +62,6 @@ export class GamesComponent implements OnInit {
     effect(() => {
       // This effect will run whenever currentLanguage signal changes
       const currentLang = this.localizationService.currentLanguage();
-      console.log('🌐 Language changed to:', currentLang, '- reloading games...');
       
       // Only reload if component is initialized (avoid initial load duplication)
       if (this.games.length > 0 || this.loading.value) {
@@ -72,11 +71,8 @@ export class GamesComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('🎮 GamesComponent initializing...');
-    
     // Wait for API configuration to be loaded before making any API calls
     this.apiConfigService.waitForConfig().subscribe(() => {
-      console.log('✅ API configuration ready, loading data...');
       this.loadGames();
       this.loadGenres();
       this.loadPublishers();
@@ -132,7 +128,6 @@ export class GamesComponent implements OnInit {
 
   onImageError(event: any, gameId: string): void {
     this.imageErrors.add(gameId);
-    console.warn(`Failed to load image for game ${gameId}:`, event);
   }
 
   getImageErrorStatus(gameId: string): boolean {
@@ -183,16 +178,8 @@ export class GamesComponent implements OnInit {
       publisherNames: this.selectedPublisherNames.length > 0 ? this.selectedPublisherNames : undefined
     };
 
-    // Debug logging
-    console.log('🔍 Loading games with params:', searchParams);
-    console.log('📄 Current page before API call:', this.currentPage);
-
     this.gameService.getAllGames(searchParams).subscribe({
       next: (response) => {
-        console.log('✅ API Response:', response);
-        console.log('📊 Games returned:', response.data?.length || 0);
-        console.log('📈 Total pages:', response.totalPages);
-        console.log('📍 Current page from response:', response.currentPage);
         
         this.games = response.data;
         this.filteredGames = [...this.games];
@@ -244,18 +231,14 @@ export class GamesComponent implements OnInit {
   }
 
   loadPlatforms() {
-    console.log('🎮 Loading platforms from backend...');
     this.platformService.getAllPlatforms().subscribe({
       next: (platforms) => {
-        console.log('✅ Platforms loaded from backend:', platforms);
         this.platforms = platforms;
         // Extract platform types for the filter UI
         this.platformNames = platforms.map(p => p.type).sort();
-        console.log('📋 Platform names for UI:', this.platformNames);
       },
       error: (error) => {
         console.error('❌ Failed to load platforms from backend:', error);
-        console.error('🔧 Using fallback static platforms');
         // Fallback to static platforms if API fails
         this.platformNames = ['PC', 'PlayStation', 'Xbox', 'Nintendo Switch'];
       }
@@ -352,15 +335,9 @@ export class GamesComponent implements OnInit {
 
   // Pagination methods
   goToPage(page: number) {
-    console.log('🎯 goToPage called with:', page);
-    console.log('📊 Current state - currentPage:', this.currentPage, 'totalPages:', this.totalPages);
-    
     if (page >= 1 && page <= this.totalPages) {
-      console.log('✅ Valid page, setting currentPage to:', page);
       this.currentPage = page;
       this.loadGames();
-    } else {
-      console.warn('❌ Invalid page:', page, 'Valid range: 1 -', this.totalPages);
     }
   }
 

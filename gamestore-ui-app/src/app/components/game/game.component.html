@@ -9,13 +9,6 @@
   <p class="error-message">{{ error }}</p>
 </div>
 
-<!-- Debug Info -->
-<div style="position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.8); color: white; padding: 10px; font-size: 12px; z-index: 9999;">
-  <div>Loading: {{ loading }}</div>
-  <div>Error: {{ error }}</div>
-  <div>Game: {{ game ? 'Loaded' : 'Not loaded' }}</div>
-  <div>Game ID: {{ gameId }}</div>
-</div>
 
 <!-- Game Product Page -->
 <div *ngIf="!loading && !error && game" class="product-page">
@@ -49,11 +42,11 @@
     <div class="product-info">
       <!-- Breadcrumb -->
       <div class="breadcrumb">
-        <span>Home</span> > <span>Games</span> > <span>{{ game?.name || 'Game Details' }}</span>
+        <span>Home</span> > <span>Games</span> > <span>{{ game?.name || 'Loading...' }}</span>
       </div>
 
       <!-- Game Title -->
-      <h1 class="product-title">{{ game?.name || 'Ace Combat 7: Skies Unknown' }}</h1>
+      <h1 class="product-title">{{ game?.name || 'Loading...' }}</h1>
       <div class="product-subtitle">Launch Edition</div>
 
       <!-- Rating -->
@@ -76,61 +69,36 @@
       <!-- Quick Info -->
       <div class="product-quick-info">
         <div class="info-row">
-          <span class="info-label">Platforms on:</span>
+          <span class="info-label">{{ 'gameDetail.platformsOn' | translate }}</span>
           <span class="info-value">PC only</span>
         </div>
         <div class="info-row">
-          <span class="info-label">Genre:</span>
-          <span class="info-value">{{ game?.genre || 'Action, Adventure' }}</span>
+          <span class="info-label">{{ 'gameDetail.genre' | translate }}</span>
+          <span class="info-value">{{ game?.genre || ('common.loading' | translate) }}</span>
         </div>
         <div class="info-row">
-          <span class="info-label">Publisher:</span>
-          <span class="info-value">{{ game?.publisher || 'BANDAI NAMCO Entertainment America Inc' }}</span>
+          <span class="info-label">{{ 'gameDetail.publisher' | translate }}</span>
+          <span class="info-value">{{ game?.publisher || ('common.loading' | translate) }}</span>
         </div>
       </div>
 
       <!-- Platform Tags -->
       <div class="platform-tags">
-        <span class="platform-tag">Windows</span>
-        <span class="platform-tag">Steam</span>
-        <span class="platform-tag">Single-player</span>
-        <span class="platform-tag">Controller</span>
+        <span class="platform-tag">{{ 'gameDetail.platforms.windows' | translate }}</span>
+        <span class="platform-tag">{{ 'gameDetail.platforms.steam' | translate }}</span>
+        <span class="platform-tag">{{ 'gameDetail.platforms.singlePlayer' | translate }}</span>
+        <span class="platform-tag">{{ 'gameDetail.platforms.controller' | translate }}</span>
       </div>
 
       <!-- Add to Cart Button -->
       <button class="add-to-cart-button" (click)="addToCart()">
-        Add to Cart
+        {{ 'gameDetail.addToCart' | translate }}
       </button>
-
-      <!-- What You Get Section -->
-      <div class="what-you-get">
-        <h3>What You Get</h3>
-        <ul class="features-list">
-          <li>✓ Purchase and use without a monthly subscription.</li>
-          <li>✓ Get early gaming access.</li>
-          <li>✓ No ads in games.</li>
-          <li>✓ Access to 1,000+ games.</li>
-          <li>✓ PlayStation full Favorites Access.</li>
-          <li>✓ Special monthly free games like God of War, Days 2.</li>
-          <li>✓ EA SPORTS FC 24, including up to 4,600 FC Points (a $40 Value), plus</li>
-          <li>✓ Madden NFL 24 Superstar Edition and FIFA 23 Ultimate Team with</li>
-          <li>✓ Ultimate Team cards and other bonus content when you're an EA Play</li>
-          <li>✓ 10% discount in the PlayStation store and unlock big game's.</li>
-        </ul>
-      </div>
-
       <!-- Game Description -->
       <div class="game-description">
         <h3>Game Description</h3>
-        <p>{{ game?.description || 'Become an ace pilot and soar through photorealistic skies with full 360 degree movement; down enemy aircraft and experience the thrill of engaging in realistic sorties! Aerial combat has never looked or felt better!' }}</p>
+        <p>{{ game?.description || ('common.loading' | translate) }}</p>
         
-        <p>This intensive adventure, which also aims to exceed the series the rest of engaging in realistic sorties! With realistic controls and gameplay, you can truly feel the intensity of the battle as you soar across photorealistic environments that respond to real-time weather conditions.</p>
-        
-        <p>The intuitive controls, which are designed around both single-player and real-person action with your teammates, serve to make the experience of piloting aircraft clear and straightforward from the movement inputs.</p>
-        
-        <p>You'll love classic airplane that looks and flies so real, as from the moment you accelerate down the runway to the time you land back at home base, with a vast range of different aircraft types to fly and fight with.</p>
-        
-        <p>You'll be getting your hands on various new aircraft, all new customization features, all of which let's you take the new real life and intense feeling aircraft.</p>
       </div>
     </div>
   </div>

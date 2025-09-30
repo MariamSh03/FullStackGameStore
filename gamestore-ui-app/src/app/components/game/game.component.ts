@@ -4,12 +4,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GameService, Game } from '../../services/game.service';
 import { LocalizationService } from '../../services/localization.service';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 import { CommentService, Comment } from '../../services/comment.service';
 import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-game',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
@@ -73,16 +74,17 @@ export class GameComponent implements OnInit {
     this.gameId = this.route.snapshot.paramMap.get('id');
     console.log('📄 Game ID from route:', this.gameId);
     
-    // Always load mock data first to ensure something is displayed
-    console.log('📝 Loading mock data first to ensure content is visible...');
-    this.loadMockGame();
-    
     if (this.gameId) {
-      // Try to load real data after mock data is loaded
-      setTimeout(() => {
-        console.log('🔄 Attempting to load real game data with ID:', this.gameId);
-        this.tryLoadRealGame(this.gameId!);
-      }, 500);
+      // Set initial state and load real data immediately
+      this.loading = true;
+      this.error = null;
+      this.game = null;
+      console.log('🔄 Loading real game data with ID:', this.gameId);
+      this.tryLoadRealGame(this.gameId);
+    } else {
+      // Only load mock data if no gameId is provided
+      console.log('📝 No game ID provided, loading mock data...');
+      this.loadMockGame();
     }
   }
 
@@ -91,7 +93,10 @@ export class GameComponent implements OnInit {
 
     // Set a timeout to ensure we don't wait indefinitely
     const timeoutId = setTimeout(() => {
-      console.log('⏰ API call timeout, keeping mock data...');
+      console.log('⏰ API call timeout, loading mock data as fallback...');
+      this.loading = false;
+      this.error = 'Request timed out';
+      this.loadMockGame();
     }, 3000); // 3 second timeout
 
     this.gameService.getGameById(id).subscribe({
@@ -100,20 +105,28 @@ export class GameComponent implements OnInit {
         console.log('✅ Real game data loaded:', game);
         
         if (game && Object.keys(game).length > 0) {
-          // Update the game data but keep the same ID for consistency
+          // Update the game data and clear loading state
           this.game = { ...game, id: this.gameId };
+          this.loading = false;
+          this.error = null;
           console.log('🔄 Updated game with real data:', this.game);
-          // Reload comments with real game data
+          console.log('📝 Game description received:', this.game.description);
+          console.log('📝 Description length:', this.game.description?.length);
+          // Load comments with real game data
           this.loadComments();
         } else {
-          console.log('⚠️ Empty game data received, keeping mock data...');
+          console.log('⚠️ Empty game data received, loading mock data...');
+          this.loading = false;
+          this.loadMockGame();
         }
       },
       error: (error) => {
         clearTimeout(timeoutId);
         console.error('❌ Failed to load real game from API:', error);
-        console.log('📝 Keeping mock data due to API error');
-        // Keep mock data, don't try to reload
+        console.log('📝 Loading mock data due to API error');
+        this.loading = false;
+        this.error = 'Failed to load game data';
+        this.loadMockGame();
       }
     });
   }

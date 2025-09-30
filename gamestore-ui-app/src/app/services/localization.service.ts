@@ -101,6 +101,19 @@ export interface Translations {
     price: string;
     discount: string;
   };
+  gameDetail: {
+    platformsOn: string;
+    genre: string;
+    publisher: string;
+    addToCart: string;
+    gameDescription: string;
+    platforms: {
+      windows: string;
+      steam: string;
+      singlePlayer: string;
+      controller: string;
+    };
+  };
 }
 
 @Injectable({
@@ -211,7 +224,20 @@ export class LocalizationService {
         search: 'Search',
         price: 'Price',
         discount: 'Discount'
-      }
+      },
+      gameDetail: {
+        platformsOn: 'Platforms on:',
+        genre: 'Genre:',
+        publisher: 'Publisher:',
+        addToCart: 'Add to Cart',
+        gameDescription: 'Game Description',
+        platforms: {
+          windows: 'Windows',
+          steam: 'Steam',
+          singlePlayer: 'Single-player',
+          controller: 'Controller'
+        }
+      },
     },
     ka: {
       navbar: {
@@ -308,6 +334,19 @@ export class LocalizationService {
         search: 'ძიება',
         price: 'ფასი',
         discount: 'ფასდაკლება'
+      },
+      gameDetail: {
+        platformsOn: 'პლატფორმები:',
+        genre: 'ჟანრი:',
+        publisher: 'გამომცემელი:',
+        addToCart: 'კალათაში დამატება',
+        gameDescription: 'თამაშის აღწერა',
+        platforms: {
+          windows: 'ფანჯრები',
+          steam: 'სტრიმი',
+          singlePlayer: 'ერთ-მოთამაშე',
+          controller: 'კონტროლერი'
+        }
       }
     },
     de: {
@@ -405,6 +444,19 @@ export class LocalizationService {
         search: 'Suchen',
         price: 'Preis',
         discount: 'Rabatt'
+      },
+      gameDetail: {
+        platformsOn: 'Plattformen:',
+        genre: 'Genre:',
+        publisher: 'Verlag:',
+        addToCart: 'In den Warenkorb',
+        gameDescription: 'Spielbeschreibung',
+        platforms: {
+          windows: 'Windows',
+          steam: 'Steam',
+          singlePlayer: 'Einzelspieler',
+          controller: 'Controller'
+        }
       }
     }
   };

@@ -4,6 +4,7 @@ using AdminPanel.Bll.Exceptions;
 using AdminPanel.Bll.Interfaces;
 using AdminPanel.Web.Authorization;
 using AdminPanel.Web.DtoMapper;
+using AdminPanel.Web.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +14,13 @@ public class GameController : Controller
 {
     private readonly IGameService _gameService;
     private readonly IOrderService _orderService;
+    private readonly IGameLocalizationService _localizationService;
 
-    public GameController(IGameService gameService, IOrderService orderService)
+    public GameController(IGameService gameService, IOrderService orderService, IGameLocalizationService localizationService)
     {
         _gameService = gameService;
         _orderService = orderService;
+        _localizationService = localizationService;
     }
 
     [HttpGet("games")]
@@ -43,9 +46,36 @@ public class GameController : Controller
                     .ToList();
             }
 
+            // Get language from Accept-Language header
+            var acceptLanguage = Request.GetAcceptLanguage();
+            var language = _localizationService.ParseAcceptLanguageHeader(acceptLanguage);
+
             // Call the service with the updated filter
             var result = await _gameService.GetFilteredGamesAsync(filter);
-            return Ok(result);
+
+            // Localize the games in the result
+            var localizedGames = await _localizationService.GetLocalizedGamesAsync(
+                result.Games.Select(g => new Entity.GameEntity
+                {
+                    Id = g.Id,
+                    Key = g.Key,
+                    Name = g.Name,
+                    Description = g.Description,
+                    Price = g.Price,
+                    Discount = g.Discount,
+                    UnitInStock = g.UnitInStock,
+                }),
+                language);
+
+            // Return localized result
+            var localizedResult = new PagedGamesResultDto
+            {
+                Games = localizedGames,
+                TotalPages = result.TotalPages,
+                CurrentPage = result.CurrentPage,
+            };
+
+            return Ok(localizedResult);
         }
         catch (Exception)
         {
@@ -59,18 +89,14 @@ public class GameController : Controller
     {
         try
         {
+            // Get language from Accept-Language header
+            var acceptLanguage = Request.GetAcceptLanguage();
+            var language = _localizationService.ParseAcceptLanguageHeader(acceptLanguage);
+
             var games = await _gameService.GetAllGamesAsync();
-            var gameResponse = games.Select(g => new GameResponseDto
-            {
-                Id = g.Id,
-                Description = g.Description,
-                Key = g.Key,
-                Name = g.Name,
-                Price = g.Price,
-                Discount = g.Discount,
-                UnitInStock = g.UnitInStock,
-            });
-            return Ok(gameResponse);
+            var localizedGames = await _localizationService.GetLocalizedGamesAsync(games, language);
+
+            return Ok(localizedGames);
         }
         catch (Exception ex)
         {
@@ -81,15 +107,57 @@ public class GameController : Controller
     [HttpGet("games/{key}")]
     public async Task<IActionResult> GetGameByKey(string key)
     {
-        var game = await _gameService.GetGameByKeyAsync(key);
-        return game == null ? NotFound() : Ok(game);
+        try
+        {
+            var game = await _gameService.GetGameByKeyAsync(key);
+            if (game == null)
+            {
+                return NotFound();
+            }
+
+            // Get language from Accept-Language header
+            var acceptLanguage = Request.GetAcceptLanguage();
+            var language = _localizationService.ParseAcceptLanguageHeader(acceptLanguage);
+
+            var localizedGame = await _localizationService.GetLocalizedGameAsync(game, language);
+            return Ok(localizedGame);
+        }
+        catch (GameNotFoundException)
+        {
+            return NotFound();
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, new { message = "An error occurred while retrieving the game." });
+        }
     }
 
     [HttpGet("games/find/{id}")]
     public async Task<IActionResult> GetGameById(Guid id)
     {
-        var game = await _gameService.GetGameByIdAsync(id);
-        return game == null ? NotFound() : Ok(game);
+        try
+        {
+            var game = await _gameService.GetGameByIdAsync(id);
+            if (game == null)
+            {
+                return NotFound();
+            }
+
+            // Get language from Accept-Language header
+            var acceptLanguage = Request.GetAcceptLanguage();
+            var language = _localizationService.ParseAcceptLanguageHeader(acceptLanguage);
+
+            var localizedGame = await _localizationService.GetLocalizedGameAsync(game, language);
+            return Ok(localizedGame);
+        }
+        catch (GameNotFoundException)
+        {
+            return NotFound();
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, new { message = "An error occurred while retrieving the game." });
+        }
     }
 
     [HttpPost("games")]

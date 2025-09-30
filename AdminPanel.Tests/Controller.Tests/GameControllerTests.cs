@@ -22,7 +22,8 @@ public class GameControllerTests : IDisposable
     {
         _mockGameService = new Mock<IGameService>();
         _mockOrderService = new Mock<IOrderService>();
-        _controller = new GameController(_mockGameService.Object, _mockOrderService.Object);
+        var mockLocalizationService = new Mock<IGameLocalizationService>();
+        _controller = new GameController(_mockGameService.Object, _mockOrderService.Object, mockLocalizationService.Object);
     }
 
 #pragma warning disable CA1816 // Dispose methods should call SuppressFinalize

@@ -234,6 +234,9 @@ builder.Services.AddScoped<UserSeeder>();
 // Register game localization seeder
 builder.Services.AddScoped<GameLocalizationSeeder>();
 
+// Register game localization service
+builder.Services.AddScoped<IGameLocalizationService, GameLocalizationService>();
+
 // Add configuration for external auth
 builder.Services.Configure<ExternalAuthConfig>(builder.Configuration.GetSection("ExternalAuth"));
 

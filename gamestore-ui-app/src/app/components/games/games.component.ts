@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { GenreService, Genre } from '../../services/genre.service';
 import { PublisherService, Publisher } from '../../services/publisher.service';
 import { PlatformService, Platform } from '../../services/platform.service';
 import { ApiConfigService } from '../../services/api-config.service';
+import { LocalizationService } from '../../services/localization.service';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { BehaviorSubject, forkJoin } from 'rxjs';
 
@@ -54,8 +55,21 @@ export class GamesComponent implements OnInit {
     private genreService: GenreService,
     private publisherService: PublisherService,
     private platformService: PlatformService,
-    private apiConfigService: ApiConfigService
-  ) {}
+    private apiConfigService: ApiConfigService,
+    private localizationService: LocalizationService
+  ) {
+    // Watch for language changes and reload games automatically
+    effect(() => {
+      // This effect will run whenever currentLanguage signal changes
+      const currentLang = this.localizationService.currentLanguage();
+      console.log('🌐 Language changed to:', currentLang, '- reloading games...');
+      
+      // Only reload if component is initialized (avoid initial load duplication)
+      if (this.games.length > 0 || this.loading.value) {
+        this.loadGames();
+      }
+    });
+  }
 
   ngOnInit() {
     console.log('🎮 GamesComponent initializing...');

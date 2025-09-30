@@ -26,7 +26,7 @@ public class CommentService : ICommentService
             throw new GameServiceException($"User '{name}' is currently banned from commenting.");
         }
 
-        var game = (await _gameRepository.FindAsync(g => g.Key == gameKey)).FirstOrDefault()
+        var game = await _gameRepository.GetByKeyAsync(gameKey)
                    ?? throw new GameNotFoundException("Game not found.");
 
         if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(body))
@@ -48,7 +48,7 @@ public class CommentService : ICommentService
 
     public async Task<IEnumerable<CommentResponseDto>> GetCommentsAsync(string gameKey)
     {
-        var game = (await _gameRepository.FindAsync(g => g.Key == gameKey)).FirstOrDefault()
+        var game = await _gameRepository.GetByKeyAsync(gameKey)
                    ?? throw new GameNotFoundException("Game not found.");
 
         var allComments = await _commentRepository.FindAsync(c => c.GameId == game.Id);

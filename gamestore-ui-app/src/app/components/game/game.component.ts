@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GameService, Game } from '../../services/game.service';
+import { LocalizationService } from '../../services/localization.service';
 import { CommentService, Comment } from '../../services/comment.service';
 import { OrderService } from '../../services/order.service';
 
@@ -52,8 +53,20 @@ export class GameComponent implements OnInit {
     private route: ActivatedRoute,
     private gameService: GameService,
     private commentService: CommentService,
-    private orderService: OrderService
-  ) {}
+    private orderService: OrderService,
+    private localizationService: LocalizationService
+  ) {
+    // Watch for language changes and reload game data automatically
+    effect(() => {
+      const currentLang = this.localizationService.currentLanguage();
+      console.log('🌐 Language changed to:', currentLang, '- reloading game...');
+      
+      // Only reload if we have a gameId and game data is loaded
+      if (this.gameId && this.game) {
+        this.tryLoadRealGame(this.gameId);
+      }
+    });
+  }
 
   ngOnInit() {
     console.log('🎮 GameComponent initializing...');

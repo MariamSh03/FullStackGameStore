@@ -2,11 +2,47 @@
 
 Modern Game Admin Panel with ASP.NET Core 6 (Web API + MVC), Entity Framework Core, SQL Server, and an Angular frontend.
 
+![Cart mockup](./Mockups/Cart@2x.png)
+
+### Overview
+GameStore is a full-stack learning-grade application demonstrating production-style patterns: clean layered architecture, role/permission-based authorization, rich CRUD flows, server-side validation, API documentation, automated mapping, and an Angular UI with client-side routing and localization hooks.
+
 ### Tech stack
 - Backend: C#, ASP.NET Core 6, EF Core, Swagger/OpenAPI, AutoMapper, xUnit, StyleCop
 - Database: SQL Server (local), EF Core Migrations
 - Frontend: Angular 20, RxJS
+- AuthZ: Custom permission- and role-based authorization with policy provider/handlers
+- Observability: Centralized exception handling, request logging middleware
 - Tooling: .NET CLI, Node.js/NPM
+
+### Key features
+- Authorization and RBAC
+  - Permissions and roles with custom policy provider and authorization handlers
+  - Attributes for permission/role requirements on controllers/actions
+- CRUD and business flows
+  - Full CRUD for Games, Genres, Platforms, Publishers, Orders, Comments
+  - Validation at entity and DTO levels; comprehensive controller/service tests
+  - Pagination, filtering, projection via DTOs and AutoMapper
+- Localization (i18n-ready)
+  - `GameLocalizationEntity` and related services/seeders for multi-language game data
+  - Frontend translation utilities and configuration-driven UI strings
+- API documentation
+  - Swagger/OpenAPI with discoverable endpoints and schemas
+- Clean architecture and maintainability
+  - Clear layering (Entities → DAL → BLL → Web), SOLID principles, StyleCop rules
+- Frontend UI
+  - Angular SPA with routing, feature components, and services consuming the API
+
+### Architecture
+- Layered solution designed for modularity and future service extraction:
+  - `Entity`: Persistence-agnostic domain models
+  - `Dal`: EF Core DbContext, repositories, migrations, seeders
+  - `Bll`: Business services, DTOs, mapping profiles
+  - `Web`: ASP.NET Core (Web API + MVC), middleware, authorization, hosting
+  - `Tests`: xUnit test projects for entities, middleware, controllers, and services
+  - `gamestore-ui-app`: Angular application consuming the backend
+
+Note: While the current deployment is a layered monolith, boundaries are structured to support gradual extraction to microservices if desired.
 
 ### Solution layout
 - `AdminPanel.Entity` — domain/entities
@@ -70,5 +106,6 @@ dotnet ef migrations add <Name> --project AdminPanel.Dal --startup-project Admin
 - Role/permission-based authorization and middleware for error handling/logging are configured in `AdminPanel.Web/Authorization` and `AdminPanel.Web/Middleware`.
 - DTO mapping is centralized via AutoMapper in `AdminPanel.Bll/Mapping`.
 - The Angular app consumes the published API endpoints from the backend.
+
 
 
